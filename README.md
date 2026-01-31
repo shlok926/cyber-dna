@@ -1,20 +1,12 @@
-### &nbsp;  **🛡️ Cyber DNA – Cyber Security Risk Assessment Tool**
-
-
-
+🛡️ Cyber DNA – Cyber Security Risk Assessment Tool
 
 
 Cyber DNA is a web-based cyber security awareness and risk assessment tool designed to help users understand their cyber hygiene and vulnerability to common online threats.
 
-
-
 The tool evaluates user behavior through a set of simple questions and provides a cyber risk score along with a downloadable security report.
 
 
-
-
-
-**🚀 Features**
+🚀 Features
 
 \- Cyber security risk assessment
 
@@ -30,23 +22,17 @@ The tool evaluates user behavior through a set of simple questions and provides 
 
 
 
----
+🧠 How It Works
 
+1) User answers a set of cyber safety questions  
 
+2) The system analyzes responses using a rule-based scoring model  
 
- **🧠 How It Works**
+3) A cyber risk level is calculated  
 
-1\. User answers a set of cyber safety questions  
+4) Users receive a summarized result on the website  
 
-2\. The system analyzes responses using a rule-based scoring model  
-
-3\. A cyber risk level is calculated  
-
-4\. Users receive a summarized result on the website  
-
-5\. A detailed PDF report can be downloaded for reference  
-
-
+5) A detailed PDF report can be downloaded for reference  
 
 
 
@@ -61,12 +47,7 @@ The tool evaluates user behavior through a set of simple questions and provides 
 \- \*\*Deployment:\*\* Render  
 
 
-
-
-
-**📦 Project Structure**
-
-
+📦 Project Structure
 
 Cyber\_DNA\_Hackathon/
 
@@ -86,102 +67,39 @@ Cyber\_DNA\_Hackathon/
 
 
 
+▶️ Run Locally
 
-
-**▶️ Run Locally**
-
-
-
-1\. Clone the repository
-
-```bash
+1) Clone the repository
 
 git clone https://github.com/shlok926/cyber-dna.git
 
-
-
-
-
-2\. Install dependencies
+2) Install dependencies
 
 pip install -r requirements.txt
 
-
-
-3\. Run the application
+3) Run the application
 
 python app.py
 
-
-
-4\. Open in browser
-
+4). Open in browser
 http://127.0.0.1:5000
 
-
-
-
-
-**⚠️ Disclaimer**
-
-
-
+⚠️ Disclaimer
 This tool is intended for cyber awareness and educational purposes only.
-
 The assessment is based on user responses and should not be considered as professional security advice.
 
 
-
-
-
-**👨‍💻 Author**
-
-
-
+👨‍💻 Author
 Shlok Thorat
 
-
-
-
-
-**🌱 Future Scope**
-
-
-
+🌱 Future Scope**
 AI/NLP-based threat understanding
-
-
-
 User accounts \& history
-
-
-
 Advanced analytics dashboard
-
-
-
 Mobile-friendly version
 
-
-
-
-
-
-
- **✅ STEP 3: Git me README add + commit + push**
-
-
-
-CMD me ye commands ek-ek karke chalao:
-
-
-
-```bat
-
+STEP 3: Git me README add + commit + push*
 git add README.md
-
-
-
 git commit -m "Add project README"
 
 
