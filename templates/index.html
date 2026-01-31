@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cyber DNA – Security Risk Assessment</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <!-- HEADER -->
+    <div class="header">
+        <div class="logo">🛡️</div>
+        <div>
+            <h1 class="main-title">Cyber DNA</h1>
+            <p class="subtitle center">
+                Adaptive Cyber Security Risk Assessment
+            </p>
+        </div>
+    </div>
+
+    <!-- FORM -->
+    <form id="dnaForm" class="card">
+
+        <label>Why are you here today?</label>
+        <select id="mode" required>
+            <option value="">-- Select an option --</option>
+            <option value="general">General Cyber Risk Check</option>
+            <option value="threat">Specific Cyber Problem</option>
+        </select>
+
+        <hr>
+
+        <div id="questions"></div>
+
+        <button type="submit">Analyze My Cyber DNA</button>
+    </form>
+
+    <!-- RESULT -->
+    <div id="result" class="card"></div>
+
+</div>
+
+<script>
+let lastResult = null;
+
+/* ===== QUESTIONS ===== */
+const questionsHTML = `
+<div class="question">
+  <label>Do you click links from unknown messages?</label>
+  <select name="q1"><option value="A">Never</option><option value="B">Sometimes</option><option value="C">Often</option></select>
+</div>
+
+<div class="question">
+  <label>Have you ever shared OTP or verification codes?</label>
+  <select name="q2"><option value="A">Never</option><option value="B">Once or twice</option><option value="C">Multiple times</option></select>
+</div>
+
+<div class="question">
+  <label>Do you use public Wi-Fi for banking or sensitive logins?</label>
+  <select name="q3"><option value="A">Never</option><option value="B">Occasionally</option><option value="C">Frequently</option></select>
+</div>
+
+<div class="question">
+  <label>Do you reuse the same password across websites or apps?</label>
+  <select name="q4"><option value="A">No</option><option value="B">Some sites</option><option value="C">Many sites</option></select>
+</div>
+
+<div class="question">
+  <label>How do you react to urgent security warnings?</label>
+  <select name="q5"><option value="A">Verify first</option><option value="B">Get confused</option><option value="C">Act immediately</option></select>
+</div>
+
+<div class="question">
+  <label>Do you check app permissions before allowing access?</label>
+  <select name="q6"><option value="A">Always</option><option value="B">Sometimes</option><option value="C">Never</option></select>
+</div>
+
+<div class="question">
+  <label>Do you use Two-Factor Authentication (2FA)?</label>
+  <select name="q7"><option value="A">Yes</option><option value="B">Some accounts</option><option value="C">No</option></select>
+</div>
+`;
+
+document.getElementById("mode").onchange = () => {
+    document.getElementById("questions").innerHTML = questionsHTML;
+};
+
+/* ===== SUBMIT ===== */
+document.getElementById("dnaForm").onsubmit = async (e) => {
+    e.preventDefault();
+
+    let data = {};
+    new FormData(e.target).forEach((v, k) => data[k] = v);
+
+    let response = await fetch("/analyze", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data)
+    });
+
+    lastResult = await response.json();
+    let percent = Math.min((lastResult.total_score / 31) * 100, 100);
+
+    document.getElementById("result").innerHTML = `
+        <h2 class="${lastResult.risk_color.toLowerCase()}">
+            ${lastResult.risk_level}
+        </h2>
+
+        <div class="risk-meter">
+            <div class="risk-fill ${lastResult.risk_color.toLowerCase()}"
+                 style="width:${percent}%"></div>
+        </div>
+
+        <p><b>Score:</b> ${lastResult.total_score} / 31</p>
+
+        <h3>⚠️ Identified Weak Areas</h3>
+        <ul>
+            ${lastResult.weak_areas.length
+                ? lastResult.weak_areas.map(w => `<li>${w}</li>`).join("")
+                : "<li>No major weak areas detected</li>"}
+        </ul>
+
+        <h3>✅ Security Recommendations</h3>
+        <ul>
+            ${lastResult.recommendations.map(r => `<li>${r}</li>`).join("")}
+        </ul>
+
+        <button id="downloadBtn">Download PDF Report</button>
+    `;
+
+    document.getElementById("downloadBtn").onclick = async () => {
+        let r = await fetch("/download-report", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(lastResult)
+        });
+        let blob = await r.blob();
+        let a = document.createElement("a");
+        a.href = URL.createObjectURL(blob);
+        a.download = "Cyber_DNA_Report.pdf";
+        a.click();
+    };
+};
+</script>
+
+</body>
+</html>

@@ -1,0 +1,145 @@
+🟢 DAY 1 GOAL
+
+By end of Day-1, you will have:
+✅ Clear problem statement
+✅ Final project name & pitch
+✅ 7 questions (final)
+✅ Scoring logic (brain of project)
+✅ Output format (what user sees)
+
+🔹 STEP 1: Lock Project Identity (30 min)
+Project Name:
+
+Cyber DNA – AI-Based Cyber Awareness Profiling System
+
+Tagline (Devpost ready):
+
+Understand your cyber risk before scammers do.
+
+Category:
+
+Cybersecurity
+
+AI for Social Good
+
+Awareness & Education
+
+📌 IMPORTANT:
+Name + tagline fixed → don’t change later.
+
+🔹 STEP 2: Define the Problem (Write this down) – 15 min
+
+Problem Statement (Simple):
+
+Most people don’t know how risky their online behavior is until they become victims of cyber fraud. Existing tools focus on detecting attacks, not understanding user vulnerability.
+
+Judges ko clarity milti hai yaha se ✔️
+
+🔹 STEP 3: Finalize 7 Cyber Awareness Questions (CORE)
+
+These questions = your dataset 😎
+Choose carefully.
+
+Q1. Unknown Links
+
+Do you click on links from unknown senders?
+
+A) Never → 0 points
+
+B) Sometimes → 2 points
+
+C) Often → 4 points
+
+Q2. OTP Sharing
+
+Have you ever shared an OTP with anyone?
+
+A) Never → 0
+
+B) Once or twice → 3
+
+C) Yes, many times → 5
+
+Q3. Public Wi-Fi
+
+Do you use public Wi-Fi for banking or logins?
+
+A) Never → 0
+
+B) Sometimes → 3
+
+C) Often → 5
+
+Q4. Password Practice
+
+Do you reuse the same password on multiple sites?
+
+A) Never → 0
+
+B) 2–3 sites → 3
+
+C) Many sites → 5
+
+Q5. Urgency Messages
+
+How do you react to urgent messages like “Account will be blocked”?
+
+A) Ignore & verify → 0
+
+B) Get confused → 2
+
+C) Act immediately → 4
+
+Q6. App Permissions
+
+Do you allow app permissions without checking?
+
+A) No → 0
+
+B) Sometimes → 2
+
+C) Yes → 4
+
+Q7. Two-Factor Authentication
+
+Do you use 2FA for important accounts?
+
+A) Yes → 0
+
+B) On some accounts → 2
+
+C) No → 4
+
+📌 Max Score = 31
+
+🔹 STEP 4: Risk Classification Logic (VERY IMPORTANT)
+Total Score	Risk Level	Color
+0 – 7	Low Risk	🟢 Green
+8 – 18	Medium Risk	🟡 Yellow
+19 – 31	High Risk	🔴 Red
+
+This table will be:
+
+In backend
+
+In UI
+
+In explanation
+
+🔹 STEP 5: Cyber DNA Output Format (Decide Today)
+Final Result Page Shows:
+Cyber DNA Report
+-------------------------
+Risk Level: HIGH 🔴
+Total Score: 23 / 31
+
+Weak Areas Identified:
+• OTP Sharing
+• Public Wi-Fi Usage
+• Password Reuse
+
+AI Safety Recommendations:
+• Never share OTPs
+• Use password manager
+• Enable 2FA
+• Avoid public Wi-Fi for banking
