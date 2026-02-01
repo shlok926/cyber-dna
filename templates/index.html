@@ -23,6 +23,7 @@
     <!-- FORM -->
     <form id="dnaForm" class="card">
 
+        <!-- MODE SELECTION -->
         <label>Why are you here today?</label>
         <select id="mode" required>
             <option value="">-- Select an option --</option>
@@ -30,11 +31,28 @@
             <option value="threat">Specific Cyber Problem</option>
         </select>
 
+        <!-- THREAT TYPE (HIDDEN INITIALLY) -->
+        <div id="threatSection" style="display:none; margin-top:15px;">
+            <label>Select the cyber problem you are facing</label>
+            <select id="threatType">
+                <option value="">-- Select problem --</option>
+                <option>Phishing / Scam Messages</option>
+                <option>OTP or UPI Fraud</option>
+                <option>Social Media Account Hacked</option>
+                <option>Online Banking Issue</option>
+                <option>Other</option>
+            </select>
+        </div>
+
         <hr>
 
-        <div id="questions"></div>
+        <!-- QUESTIONS (HIDDEN INITIALLY) -->
+        <div id="questions" style="display:none;"></div>
 
-        <button type="submit">Analyze My Cyber DNA</button>
+        <!-- ANALYZE BUTTON (HIDDEN INITIALLY) -->
+        <button type="submit" id="analyzeBtn" style="display:none;">
+            Analyze My Cyber DNA
+        </button>
     </form>
 
     <!-- RESULT -->
@@ -49,42 +67,99 @@ let lastResult = null;
 const questionsHTML = `
 <div class="question">
   <label>Do you click links from unknown messages?</label>
-  <select name="q1"><option value="A">Never</option><option value="B">Sometimes</option><option value="C">Often</option></select>
+  <select name="q1">
+    <option value="A">Never</option>
+    <option value="B">Sometimes</option>
+    <option value="C">Often</option>
+  </select>
 </div>
 
 <div class="question">
   <label>Have you ever shared OTP or verification codes?</label>
-  <select name="q2"><option value="A">Never</option><option value="B">Once or twice</option><option value="C">Multiple times</option></select>
+  <select name="q2">
+    <option value="A">Never</option>
+    <option value="B">Once or twice</option>
+    <option value="C">Multiple times</option>
+  </select>
 </div>
 
 <div class="question">
   <label>Do you use public Wi-Fi for banking or sensitive logins?</label>
-  <select name="q3"><option value="A">Never</option><option value="B">Occasionally</option><option value="C">Frequently</option></select>
+  <select name="q3">
+    <option value="A">Never</option>
+    <option value="B">Occasionally</option>
+    <option value="C">Frequently</option>
+  </select>
 </div>
 
 <div class="question">
   <label>Do you reuse the same password across websites or apps?</label>
-  <select name="q4"><option value="A">No</option><option value="B">Some sites</option><option value="C">Many sites</option></select>
+  <select name="q4">
+    <option value="A">No</option>
+    <option value="B">Some sites</option>
+    <option value="C">Many sites</option>
+  </select>
 </div>
 
 <div class="question">
   <label>How do you react to urgent security warnings?</label>
-  <select name="q5"><option value="A">Verify first</option><option value="B">Get confused</option><option value="C">Act immediately</option></select>
+  <select name="q5">
+    <option value="A">Verify first</option>
+    <option value="B">Get confused</option>
+    <option value="C">Act immediately</option>
+  </select>
 </div>
 
 <div class="question">
   <label>Do you check app permissions before allowing access?</label>
-  <select name="q6"><option value="A">Always</option><option value="B">Sometimes</option><option value="C">Never</option></select>
+  <select name="q6">
+    <option value="A">Always</option>
+    <option value="B">Sometimes</option>
+    <option value="C">Never</option>
+  </select>
 </div>
 
 <div class="question">
   <label>Do you use Two-Factor Authentication (2FA)?</label>
-  <select name="q7"><option value="A">Yes</option><option value="B">Some accounts</option><option value="C">No</option></select>
+  <select name="q7">
+    <option value="A">Yes</option>
+    <option value="B">Some accounts</option>
+    <option value="C">No</option>
+  </select>
 </div>
 `;
 
-document.getElementById("mode").onchange = () => {
-    document.getElementById("questions").innerHTML = questionsHTML;
+/* ===== MODE LOGIC (BUG FIX) ===== */
+const mode = document.getElementById("mode");
+const threatSection = document.getElementById("threatSection");
+const threatType = document.getElementById("threatType");
+const questionsDiv = document.getElementById("questions");
+const analyzeBtn = document.getElementById("analyzeBtn");
+
+mode.onchange = () => {
+    // Reset UI
+    threatSection.style.display = "none";
+    questionsDiv.style.display = "none";
+    analyzeBtn.style.display = "none";
+    questionsDiv.innerHTML = "";
+
+    if (mode.value === "general") {
+        questionsDiv.innerHTML = questionsHTML;
+        questionsDiv.style.display = "block";
+        analyzeBtn.style.display = "block";
+    }
+
+    if (mode.value === "threat") {
+        threatSection.style.display = "block";
+    }
+};
+
+threatType.onchange = () => {
+    if (threatType.value !== "") {
+        questionsDiv.innerHTML = questionsHTML;
+        questionsDiv.style.display = "block";
+        analyzeBtn.style.display = "block";
+    }
 };
 
 /* ===== SUBMIT ===== */
