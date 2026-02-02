@@ -82,7 +82,7 @@ pip install -r requirements.txt
 python app.py
 
 4). Open in browser
-http://127.0.0.1:5000
+cyber-dna-production.up.railway.app
 
 ⚠️ Disclaimer
 This tool is intended for cyber awareness and educational purposes only.
