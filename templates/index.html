@@ -100,26 +100,53 @@
             <div id="testResult" class="cyber-card result-card slide-down" style="display:none;"></div>
         </section>
 
-        <!-- ================= TAB 2: TEXT PHISHING ANALYZER ================= -->
+        <!-- ================= TAB 2: TEXT & URL ANALYZER ================= -->
         <section id="phishTab" class="tab-content">
             <div class="section-intro">
-                <h2>AI/NLP Phishing Message Scanner</h2>
-                <p>Paste emails, SMS messages, or social media texts to scan for social engineering indicator vectors (urgency, credential phishing, fake rewards).</p>
+                <h2>Threat Vector Scanner</h2>
+                <p>Analyze suspicious texts or inspect URL links to detect social engineering indicators, typo-squatting, or domain spoofing.</p>
             </div>
 
-            <div class="cyber-grid">
+            <!-- Sub Navigation Tabs -->
+            <div class="scan-tabs">
+                <button class="scan-sub-tab active" onclick="switchScanSubTab('textScan')" id="btnTextScanSub">
+                    Scan Message Text
+                </button>
+                <button class="scan-sub-tab" onclick="switchScanSubTab('urlScan')" id="btnUrlScanSub">
+                    Inspect URL Link
+                </button>
+            </div>
+
+            <!-- SUB-TAB 1: Text Corpus Scan -->
+            <div id="textScanContainer" class="cyber-grid slide-down">
                 <div class="cyber-card">
                     <div class="form-group">
                         <label class="input-label" for="phishText">Message Corpus to Analyze</label>
                         <textarea id="phishText" placeholder="Paste the suspicious email, SMS, or warning message here..." rows="8" class="cyber-textarea"></textarea>
                     </div>
                     <button type="button" id="scanBtn" class="cyber-btn secondary" onclick="runPhishingScan()">
-                        <span class="btn-text">Initiate Security Scan</span>
-                        <span class="btn-glow"></span>
+                        <span class="btn-text">Initiate Text Scan</span>
                     </button>
                 </div>
 
                 <div id="phishResult" class="cyber-card result-card" style="display:none;">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+
+            <!-- SUB-TAB 2: URL Domain Scan -->
+            <div id="urlScanContainer" class="cyber-grid slide-down" style="display:none;">
+                <div class="cyber-card">
+                    <div class="form-group">
+                        <label class="input-label" for="scanUrlInput">Pasted Web Link (URL)</label>
+                        <input type="text" id="scanUrlInput" placeholder="e.g., login.paypal-security.cc or bank-verify.mov..." class="cyber-textarea" style="height: auto; padding: 14px;" />
+                    </div>
+                    <button type="button" id="urlScanBtn" class="cyber-btn secondary" onclick="runUrlScan()">
+                        <span class="btn-text">Inspect Domain Safety</span>
+                    </button>
+                </div>
+
+                <div id="urlResult" class="cyber-card result-card" style="display:none;">
                     <!-- Dynamically populated -->
                 </div>
             </div>
@@ -148,6 +175,36 @@
                         <button class="scenario-btn" onclick="startSimulation('relativeScam')" id="btnSimRelative">
                             <span class="scenario-title">Relative Accident Crisis</span>
                             <span class="scenario-desc">Your cousin Rahul requests urgent cash from an unknown number.</span>
+                        </button>
+                    </div>
+
+                    <div class="custom-generator-section" style="margin-top: 25px; border-top: 1px solid var(--border-color); padding-top: 20px;">
+                        <h4 style="margin-bottom: 15px; font-size: 13px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-secondary);">🤖 Custom Phishing Generator</h4>
+                        
+                        <div class="form-group" style="margin-bottom: 12px;">
+                            <label class="input-label" style="font-size: 11px;">Target Profile</label>
+                            <select id="genPersona" class="cyber-textarea" style="height: auto; padding: 10px; font-size: 13px; width: 100%;">
+                                <option value="retiree">Retired Citizen</option>
+                                <option value="finance">Corporate Finance Manager</option>
+                                <option value="remote">Remote IT Specialist</option>
+                                <option value="student">College Student</option>
+                                <option value="executive">Executive Director</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group" style="margin-bottom: 18px;">
+                            <label class="input-label" style="font-size: 11px;">Social Engineering Hook</label>
+                            <select id="genVector" class="cyber-textarea" style="height: auto; padding: 10px; font-size: 13px; width: 100%;">
+                                <option value="tax">Urgent Tax Claim</option>
+                                <option value="shipment">Failed Cargo Delivery</option>
+                                <option value="support">Internal Security Lockout</option>
+                                <option value="crypto">Exclusive Asset Offering</option>
+                                <option value="relative">Supervisor Impersonation</option>
+                            </select>
+                        </div>
+                        
+                        <button type="button" class="cyber-btn secondary" style="width: 100%; padding: 12px;" onclick="generateCustomSimulation()" id="btnGenCustom">
+                            <span class="btn-text">Generate Target Simulation</span>
                         </button>
                     </div>
                 </div>
@@ -190,11 +247,34 @@
                     </div>
                 </div>
 
+                <!-- OSINT Leak Scan Card -->
+                <div class="cyber-card dashboard-card">
+                    <h3>OSINT Leak Exposure Scan</h3>
+                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px;">Check if your email credentials have been leaked in public dark web database breaches.</p>
+                    
+                    <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                        <input type="email" id="osintEmailInput" placeholder="Enter email address..." class="cyber-textarea" style="height: auto; padding: 10px; font-size: 13px; flex-grow: 1; margin-bottom: 0;" />
+                        <button type="button" class="cyber-btn secondary" style="padding: 10px 16px; width: auto; margin-top: 0;" onclick="runOsintScan()" id="btnOsintScan">Scan</button>
+                    </div>
+                    
+                    <div id="osintResults" style="display:none;">
+                        <!-- Results dynamically populated -->
+                    </div>
+                </div>
+
                 <!-- Unlocked Tactical Badges -->
                 <div class="cyber-card dashboard-card">
                     <h3>Security Badges Unlocked</h3>
                     <div class="badges-container" id="badgesContainer">
                         <!-- Generated Dynamically -->
+                    </div>
+                </div>
+
+                <!-- Active Threat Intelligence Bulletin -->
+                <div class="cyber-card dashboard-card full-width">
+                    <h3>Active Threat Intelligence Bulletin</h3>
+                    <div id="alertsContainer" class="alerts-grid">
+                        <div class="empty-table-text">Loading latest regional threat alerts...</div>
                     </div>
                 </div>
 
@@ -246,6 +326,44 @@ function switchTab(tabId) {
     
     if (tabId === 'dashTab') {
         renderDashboard();
+        fetchThreatAlerts();
+    }
+}
+
+async function fetchThreatAlerts() {
+    const container = document.getElementById("alertsContainer");
+    try {
+        let response = await fetch("/scam-alerts");
+        let alerts = await response.json();
+        
+        if (alerts.length === 0) {
+            container.innerHTML = `<div class="empty-table-text">No active threats reported in your area.</div>`;
+            return;
+        }
+        
+        container.innerHTML = "";
+        alerts.forEach(item => {
+            const card = document.createElement("div");
+            card.className = `alert-card border-${item.color}`;
+            card.innerHTML = `
+                <div class="alert-header">
+                    <div class="alert-meta">
+                        <span class="alert-badge risk-${item.color}">${item.risk}</span>
+                        <span class="alert-type">${item.type}</span>
+                    </div>
+                    <span class="alert-date">${item.date}</span>
+                </div>
+                <h4 class="alert-title">${item.title}</h4>
+                <p class="alert-desc">${item.description}</p>
+                <div class="alert-advisory">
+                    <strong>Tactical Guard:</strong> ${item.advisory}
+                </div>
+            `;
+            container.appendChild(card);
+        });
+    } catch(err) {
+        console.error(err);
+        container.innerHTML = `<div class="empty-table-text" style="color: #ef4444;">Failed to sync with local threat feed.</div>`;
     }
 }
 
@@ -564,7 +682,95 @@ async function runPhishingScan() {
         alert("Server communication error during text scanning.");
     } finally {
         scanBtn.disabled = false;
-        scanBtn.querySelector('.btn-text').innerText = "Initiate Security Scan";
+        scanBtn.querySelector('.btn-text').innerText = "Initiate Text Scan";
+    }
+}
+
+/* ===== SCANNER SUB-TAB SWITCHER ===== */
+function switchScanSubTab(subTabId) {
+    document.getElementById("textScanContainer").style.display = subTabId === "textScan" ? "grid" : "none";
+    document.getElementById("urlScanContainer").style.display = subTabId === "urlScan" ? "grid" : "none";
+    
+    document.getElementById("btnTextScanSub").classList.toggle("active", subTabId === "textScan");
+    document.getElementById("btnUrlScanSub").classList.toggle("active", subTabId === "urlScan");
+}
+
+/* ===== URL SAFETY ANALYZER ===== */
+async function runUrlScan() {
+    const urlInput = document.getElementById("scanUrlInput").value.trim();
+    if (!urlInput) {
+        alert("Please paste a URL or domain to inspect before running scan.");
+        return;
+    }
+    
+    const scanBtn = document.getElementById("urlScanBtn");
+    scanBtn.disabled = true;
+    scanBtn.querySelector('.btn-text').innerText = "Inspecting URL Structure...";
+    
+    try {
+        let response = await fetch("/analyze-url", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ url: urlInput })
+        });
+        
+        let result = await response.json();
+        const resDiv = document.getElementById("urlResult");
+        resDiv.style.display = "block";
+        
+        let scorePercent = result.risk_score;
+        let findingsList = result.findings.map(f => `<li><span class="bullet-icon text-red">✗</span> ${f}</li>`).join("");
+        if (!findingsList) {
+            findingsList = `<li><span class="bullet-icon text-green">✓</span> No structural anomalies or trademark spoofing detected.</li>`;
+        }
+        
+        resDiv.innerHTML = `
+            <div class="result-header">
+                <h3>Domain Reputation & Structure Scan</h3>
+                <span class="score-pill bg-${result.risk_color.toLowerCase()}">
+                    Risk Index: ${result.risk_score}/100
+                </span>
+            </div>
+            
+            <div class="risk-bar-container">
+                <div class="risk-bar-fill fill-${result.risk_color.toLowerCase()}" style="width:${scorePercent}%"></div>
+            </div>
+            
+            <div class="analysis-verdict">
+                <p><strong>Security Classification:</strong> <span class="text-${result.risk_color.toLowerCase()}">${result.risk_level}</span></p>
+                <p class="verdict-exp">${result.explanation}</p>
+            </div>
+            
+            <div class="detected-signals">
+                <h5>Structural Anomalies & Risks</h5>
+                <ul class="vuln-list">${findingsList}</ul>
+            </div>
+            
+            <div class="recommendations-section">
+                <h5>Vigilance Recommendations</h5>
+                <ul class="rec-list">
+                    ${result.recommendations.map(r => `<li><span class='bullet-icon'>✓</span> ${r}</li>`).join("")}
+                </ul>
+            </div>
+        `;
+        
+        // Save to localStorage history
+        logHistoryEntry({
+            type: "Domain Safety Scan",
+            score: `${result.risk_score}/100`,
+            level: result.risk_level,
+            color: result.risk_color,
+            raw_score: result.risk_score,
+            max_score: 100
+        });
+        
+        resDiv.scrollIntoView({ behavior: 'smooth' });
+    } catch(err) {
+        console.error(err);
+        alert("Server communication error during URL scanning.");
+    } finally {
+        scanBtn.disabled = false;
+        scanBtn.querySelector('.btn-text').innerText = "Inspect Domain Safety";
     }
 }
 
@@ -709,6 +915,34 @@ const scenarios = {
         ]
     }
 };
+async function generateCustomSimulation() {
+    const persona = document.getElementById("genPersona").value;
+    const vector = document.getElementById("genVector").value;
+    
+    const genBtn = document.getElementById("btnGenCustom");
+    genBtn.disabled = true;
+    genBtn.querySelector(".btn-text").innerText = "Generating Attack Vectors...";
+    
+    try {
+        let response = await fetch("/generate-scenario", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ persona: persona, vector: vector })
+        });
+        
+        let customScenario = await response.json();
+        
+        scenarios.customRun = customScenario;
+        
+        startSimulation('customRun');
+    } catch(err) {
+        console.error(err);
+        alert("Failed to generate custom simulation.");
+    } finally {
+        genBtn.disabled = false;
+        genBtn.querySelector(".btn-text").innerText = "Generate Target Simulation";
+    }
+}
 
 let currentScenario = null;
 let currentStageIndex = 0;
@@ -842,8 +1076,20 @@ function logHistoryEntry(entry) {
 }
 
 function clearLogHistory() {
-    if (confirm("Are you sure you want to clear your local assessment history logs?")) {
+    if (confirm("Are you sure you want to clear your local assessment history logs and OSINT scans?")) {
         localStorage.removeItem("cyber_dna_history");
+        localStorage.removeItem("cyber_dna_osint_exposure");
+        localStorage.removeItem("cyber_dna_osint_result");
+        
+        const emailInput = document.getElementById("osintEmailInput");
+        if (emailInput) emailInput.value = "";
+        
+        const resultsDiv = document.getElementById("osintResults");
+        if (resultsDiv) {
+            resultsDiv.innerHTML = "";
+            resultsDiv.style.display = "none";
+        }
+        
         renderDashboard();
     }
 }
@@ -852,15 +1098,45 @@ function renderDashboard() {
     let history = getHistory();
     const tableBody = document.getElementById("historyTableBody");
     
+    // Read OSINT exposure
+    let osintExposure = parseInt(localStorage.getItem("cyber_dna_osint_exposure") || "0");
+    let osintResultRaw = localStorage.getItem("cyber_dna_osint_result");
+    if (osintResultRaw) {
+        try {
+            renderOsintResults(JSON.parse(osintResultRaw));
+        } catch(e) {
+            console.error("Failed to parse cached OSINT results", e);
+        }
+    }
+    
     if (history.length === 0) {
         tableBody.innerHTML = `
             <tr>
                 <td colspan="4" class="empty-table-text">No assessment profiles logged in local database.</td>
             </tr>
         `;
-        document.getElementById("shieldPerc").innerText = "0%";
-        document.getElementById("shieldStatus").innerText = "UNASSESSED";
-        document.getElementById("shieldDesc").innerText = "Take the Cyber DNA Test or play the Scam Simulator to build your security shield.";
+        
+        let protectionIndex = 0;
+        let shieldStatus = "UNASSESSED";
+        let shieldDesc = "Take the Cyber DNA Test or play the Scam Simulator to build your security shield.";
+        
+        if (osintExposure > 0) {
+            protectionIndex = Math.max(0, 100 - Math.round(osintExposure * 0.4));
+            if (protectionIndex >= 85) {
+                shieldStatus = "FORTIFIED";
+                shieldDesc = `Active leak check complete. Exposure is low (${osintExposure}/100). Keep monitoring threat vectors.`;
+            } else if (protectionIndex >= 50) {
+                shieldStatus = "VIGILANT";
+                shieldDesc = `Moderate risk data leak exposure detected (${osintExposure}/100). Take safety tests to reinforce your posture.`;
+            } else {
+                shieldStatus = "VULNERABLE";
+                shieldDesc = `High leak risk detected on your accounts (${osintExposure}/100)! Immediate password rotation and MFA setup recommended.`;
+            }
+        }
+        
+        document.getElementById("shieldPerc").innerText = `${protectionIndex}%`;
+        document.getElementById("shieldStatus").innerText = shieldStatus;
+        document.getElementById("shieldDesc").innerText = shieldDesc;
         renderBadges([]);
         return;
     }
@@ -884,22 +1160,18 @@ function renderDashboard() {
     let countScoreRuns = 0;
     
     history.forEach(item => {
-        // Calculate a percentage based on score (since low score is safe for test but high threat score is bad for phish)
         let normalized = 0;
         if (item.type.includes("Phishing") || item.type.includes("Simulator")) {
-            // High is threat, so protection is 100 - score%
             normalized = 100 - ((item.raw_score / item.max_score) * 100);
         } else {
-            // Risk evaluation questionnaire, low is safe. Let's compute safety percent
-            // Score ranges from 7 (all A) to 35 (all C).
-            // A score of 7 = 100% safe, 35 = 0% safe.
             normalized = Math.max(0, 100 - (((item.raw_score - 7) / 28) * 100));
         }
         totalScoreSum += normalized;
         countScoreRuns++;
     });
     
-    let protectionIndex = Math.round(totalScoreSum / countScoreRuns);
+    let baseProtection = Math.round(totalScoreSum / countScoreRuns);
+    let protectionIndex = Math.max(0, baseProtection - Math.round(osintExposure * 0.4));
     document.getElementById("shieldPerc").innerText = `${protectionIndex}%`;
     
     let shieldStatus = "UNPROTECTED";
@@ -914,6 +1186,10 @@ function renderDashboard() {
     } else {
         shieldStatus = "VULNERABLE";
         shieldDesc = "Critical weaknesses. Your behavior or simulator runs indicate high vulnerability to social engineering scams.";
+    }
+    
+    if (osintExposure > 0) {
+        shieldDesc += ` (Exposure Index deduction of -${Math.round(osintExposure * 0.4)}% applied from dark web data leak scans)`;
     }
     
     document.getElementById("shieldStatus").innerText = shieldStatus;
@@ -940,6 +1216,104 @@ function renderDashboard() {
     }
     
     renderBadges(badges);
+}
+
+async function runOsintScan() {
+    const emailInput = document.getElementById("osintEmailInput");
+    const scanBtn = document.getElementById("btnOsintScan");
+    const resultsDiv = document.getElementById("osintResults");
+    
+    const email = emailInput.value.trim();
+    if (!email || !email.includes("@")) {
+        alert("Please enter a valid email address containing '@'.");
+        return;
+    }
+    
+    scanBtn.disabled = true;
+    scanBtn.innerText = "Scanning...";
+    
+    try {
+        let response = await fetch("/osint-scan", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: email })
+        });
+        
+        let result = await response.json();
+        
+        if (!result.success) {
+            alert(result.error || "OSINT scan failed.");
+            return;
+        }
+        
+        localStorage.setItem("cyber_dna_osint_exposure", result.exposure_score);
+        localStorage.setItem("cyber_dna_osint_result", JSON.stringify(result));
+        
+        renderOsintResults(result);
+        renderDashboard();
+    } catch(err) {
+        console.error(err);
+        alert("Server error during OSINT database search.");
+    } finally {
+        scanBtn.disabled = false;
+        scanBtn.innerText = "Scan";
+    }
+}
+
+function renderOsintResults(result) {
+    const resultsDiv = document.getElementById("osintResults");
+    if (!result) {
+        resultsDiv.style.display = "none";
+        return;
+    }
+    
+    resultsDiv.style.display = "block";
+    
+    let colorClass = "green";
+    let riskLevel = "Low Risk";
+    if (result.exposure_score >= 60) {
+        colorClass = "red";
+        riskLevel = "Critical Exposure";
+    } else if (result.exposure_score >= 30) {
+        colorClass = "yellow";
+        riskLevel = "Medium Exposure";
+    }
+    
+    let HTML = `
+        <div class="osint-summary" style="margin-top: 15px; border-top: 1px solid var(--border-color); padding-top: 15px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                <span style="font-size: 12px; font-weight: 700; color: var(--text-primary); text-transform: uppercase;">Exposure Index:</span>
+                <span class="status-indicator stat-${colorClass}" style="font-weight: 700; text-transform: uppercase; font-size: 11px;">${result.exposure_score}/100 (${riskLevel})</span>
+            </div>
+            <div style="font-size: 11px; color: var(--text-secondary); margin-bottom: 15px;">
+                Target: <strong style="color: var(--text-primary);">${result.email}</strong>. Found in <strong style="color: var(--text-primary);">${result.breaches_count}</strong> data breaches.
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 10px; max-height: 220px; overflow-y: auto; padding-right: 4px;">
+    `;
+    
+    result.breaches.forEach(b => {
+        let itemsHTML = b.compromised_data.map(item => `<span style="display: inline-block; background: rgba(255,255,255,0.02); padding: 2px 6px; border-radius: 4px; font-size: 9.5px; margin-right: 4px; color: var(--text-primary); border: 1px solid var(--border-color);">${item}</span>`).join('');
+        HTML += `
+            <div style="background: rgba(255, 255, 255, 0.01); border: 1px solid var(--border-color); padding: 10px; border-radius: 8px;">
+                <div style="display: flex; justify-content: space-between; font-size: 10.5px; color: var(--text-secondary); margin-bottom: 6px;">
+                    <span style="font-weight: 600; color: var(--text-primary);">${b.name}</span>
+                    <span>${b.date}</span>
+                </div>
+                <div style="margin-bottom: 8px; display: flex; flex-wrap: wrap; gap: 4px;">
+                    ${itemsHTML}
+                </div>
+                <p style="font-size: 11px; color: var(--text-secondary); margin: 0; line-height: 1.45;">${b.details}</p>
+            </div>
+        `;
+    });
+    
+    HTML += `
+            </div>
+        </div>
+    `;
+    
+    resultsDiv.innerHTML = HTML;
 }
 
 function renderBadges(badges) {

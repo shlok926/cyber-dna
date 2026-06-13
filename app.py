@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_file
-from logic import analyze_responses, analyze_text_phishing
+from logic import analyze_responses, analyze_text_phishing, analyze_url_safety, generate_custom_scenario, run_osint_scan
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from reportlab.lib.colors import HexColor
@@ -23,6 +23,28 @@ def analyze_text():
     data = request.json
     text = data.get("text", "")
     result = analyze_text_phishing(text)
+    return jsonify(result)
+
+@app.route("/analyze-url", methods=["POST"])
+def analyze_url():
+    data = request.json
+    url = data.get("url", "")
+    result = analyze_url_safety(url)
+    return jsonify(result)
+
+@app.route("/generate-scenario", methods=["POST"])
+def generate_scenario():
+    data = request.json
+    persona = data.get("persona", "retiree")
+    vector = data.get("vector", "tax")
+    result = generate_custom_scenario(persona, vector)
+    return jsonify(result)
+
+@app.route("/osint-scan", methods=["POST"])
+def osint_scan():
+    data = request.json
+    email = data.get("email", "")
+    result = run_osint_scan(email)
     return jsonify(result)
 
 
@@ -207,6 +229,42 @@ def download_report():
         download_name="Cyber_DNA_Report.pdf",
         mimetype="application/pdf"
     )
+
+@app.route("/scam-alerts", methods=["GET"])
+def scam_alerts():
+    alerts = [
+        {
+            "id": 1,
+            "title": "Smishing: USPS Courier Address Rescheduling",
+            "type": "Package Delivery Scam",
+            "date": "Trending Today",
+            "risk": "High Risk",
+            "color": "red",
+            "description": "SMS alerts claiming package delivery is held at transit hub due to missing street numbers. Redirects to clone postal portals requesting address edits and minor processing fees.",
+            "advisory": "Never click SMS links for delivery rescheduling. Check status directly on the official postal tracker using your original invoice tracking number."
+        },
+        {
+            "id": 2,
+            "title": "Vishing: AI Voice Cloning Urgent Impersonation",
+            "type": "Voice Spoofing Scam",
+            "date": "Active Threat",
+            "risk": "Critical Risk",
+            "color": "red",
+            "description": "Scammers are using voice samples from social media reels/videos to clone relatives' voices. They call crying or in distress claiming they are in jail or had an accident and require urgent wire transfers.",
+            "advisory": "Set up a secret safety passcode with your close family members. Always call the relative back on their known official contact number to verify."
+        },
+        {
+            "id": 3,
+            "title": "Phishing: Fake Electricity Bill Disconnection Alerts",
+            "type": "Utility Fraud Scam",
+            "date": "Highly Trending",
+            "risk": "High Risk",
+            "color": "yellow",
+            "description": "WhatsApp messages or robocalls warning that electricity will be disconnected within 2 hours due to unpaid dues, prompting you to call a fake helpline number.",
+            "advisory": "Utility providers do not contact users via personal WhatsApp numbers or request direct UPI payments to unofficial phone numbers."
+        }
+    ]
+    return jsonify(alerts)
 
 if __name__ == "__main__":
     app.run()
