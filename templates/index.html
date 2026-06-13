@@ -2,134 +2,370 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Cyber DNA – Security Risk Assessment</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cyber DNA – Security Risk Command Center</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
 </head>
 <body>
 
+<div class="cyber-overlay"></div>
+
 <div class="container">
-
-    <!-- HEADER -->
-    <div class="header">
-        <div class="logo">🛡️</div>
-        <div>
+    <!-- GLOWING TOP BANNER / HEADER -->
+    <header class="header">
+        <div class="logo-area">
+            <div class="logo-shield">🛡️</div>
+            <div class="logo-glow"></div>
+        </div>
+        <div class="title-meta">
             <h1 class="main-title">Cyber DNA</h1>
-            <p class="subtitle center">
-                Adaptive Cyber Security Risk Assessment
-            </p>
+            <p class="subtitle">Adaptive Human Cybersecurity Assessment Command</p>
         </div>
-    </div>
-
-    <!-- FORM -->
-    <form id="dnaForm" class="card">
-
-        <!-- MODE SELECTION -->
-        <label>Why are you here today?</label>
-        <select id="mode" required>
-            <option value="">-- Select an option --</option>
-            <option value="general">General Cyber Risk Check</option>
-            <option value="threat">Specific Cyber Problem</option>
-        </select>
-
-        <!-- THREAT TYPE (HIDDEN INITIALLY) -->
-        <div id="threatSection" style="display:none; margin-top:15px;">
-            <label>Select the cyber problem you are facing</label>
-            <select id="threatType">
-                <option value="">-- Select problem --</option>
-                <option>Phishing / Scam Messages</option>
-                <option>OTP or UPI Fraud</option>
-                <option>Social Media Account Hacked</option>
-                <option>Online Banking Issue</option>
-                <option>Other</option>
-            </select>
+        <div class="system-status">
+            <span class="status-pulse"></span>
+            <span class="status-text">SYSTEM ACTIVE</span>
         </div>
+    </header>
 
-        <hr>
-
-        <!-- QUESTIONS (HIDDEN INITIALLY) -->
-        <div id="questions" style="display:none;"></div>
-
-        <!-- ANALYZE BUTTON (HIDDEN INITIALLY) -->
-        <button type="submit" id="analyzeBtn" style="display:none;">
-            Analyze My Cyber DNA
+    <!-- TAB NAVIGATION BAR -->
+    <nav class="cyber-tabs">
+        <button class="tab-btn active" onclick="switchTab('testTab')" id="btnTestTab">
+            <span class="tab-icon">🧬</span> Behavioral Test
         </button>
-    </form>
+        <button class="tab-btn" onclick="switchTab('phishTab')" id="btnPhishTab">
+            <span class="tab-icon">🔍</span> Message Scanner
+        </button>
+        <button class="tab-btn" onclick="switchTab('simTab')" id="btnSimTab">
+            <span class="tab-icon">🎮</span> Attack Simulator
+        </button>
+        <button class="tab-btn" onclick="switchTab('dashTab')" id="btnDashTab">
+            <span class="tab-icon">📊</span> Security Center
+        </button>
+    </nav>
 
-    <!-- RESULT -->
-    <div id="result" class="card"></div>
+    <!-- MAIN INTERACTIVE CONTAINER -->
+    <main class="console-box">
 
+        <!-- ================= TAB 1: BEHAVIORAL TEST ================= -->
+        <section id="testTab" class="tab-content active">
+            <div class="section-intro">
+                <h2>🧬 Human Vulnerability Assessment</h2>
+                <p>Profile your cybersecurity behavior. Social engineering bypasses tech security—assess if your habits act as a shield or a vulnerability.</p>
+            </div>
+
+            <form id="dnaForm" class="cyber-card">
+                <!-- Mode Selection -->
+                <div class="form-group">
+                    <label class="input-label" for="mode">Select Assessment Target</label>
+                    <div class="custom-select-wrapper">
+                        <select id="mode" required>
+                            <option value="">-- Choose Target --</option>
+                            <option value="general">General Cyber Hygiene Check</option>
+                            <option value="threat">Specific Incident Vulnerability Check</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Specific threat choices (Hidden initially) -->
+                <div id="threatSection" class="form-group slide-down" style="display:none;">
+                    <label class="input-label" for="threatType">Specific Scenario Focus</label>
+                    <div class="custom-select-wrapper">
+                        <select id="threatType">
+                            <option value="">-- Choose Incident Type --</option>
+                            <option value="Phishing">Phishing / Suspicious Messages</option>
+                            <option value="OTP">OTP or Payment Fraud</option>
+                            <option value="Account">Social Media Hack Attempt</option>
+                            <option value="Banking">Online Banking / Financial Threat</option>
+                            <option value="Other">Other Suspicious Event</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Questions (Hidden initially, will be generated dynamically) -->
+                <div id="questions" class="slide-down" style="display:none;"></div>
+
+                <!-- Action Button -->
+                <button type="submit" id="analyzeBtn" class="cyber-btn" style="display:none;">
+                    <span class="btn-text">Generate Cyber DNA Profile</span>
+                    <span class="btn-glow"></span>
+                </button>
+            </form>
+
+            <!-- Test Result Card (Hidden initially) -->
+            <div id="testResult" class="cyber-card result-card slide-down" style="display:none;"></div>
+        </section>
+
+        <!-- ================= TAB 2: TEXT PHISHING ANALYZER ================= -->
+        <section id="phishTab" class="tab-content">
+            <div class="section-intro">
+                <h2>🔍 AI/NLP Phishing Message Scanner</h2>
+                <p>Paste emails, SMS messages, or social media texts to scan for social engineering indicator vectors (urgency, credential phishing, fake rewards).</p>
+            </div>
+
+            <div class="cyber-grid">
+                <div class="cyber-card">
+                    <div class="form-group">
+                        <label class="input-label" for="phishText">Message Corpus to Analyze</label>
+                        <textarea id="phishText" placeholder="Paste the suspicious email, SMS, or warning message here..." rows="8" class="cyber-textarea"></textarea>
+                    </div>
+                    <button type="button" id="scanBtn" class="cyber-btn secondary" onclick="runPhishingScan()">
+                        <span class="btn-text">Initiate Security Scan</span>
+                        <span class="btn-glow"></span>
+                    </button>
+                </div>
+
+                <div id="phishResult" class="cyber-card result-card" style="display:none;">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 3: SCAM SIMULATOR ================= -->
+        <section id="simTab" class="tab-content">
+            <div class="section-intro">
+                <h2>🎮 Interactive Social Engineering Simulator</h2>
+                <p>Train your reflexes in active threat scenarios. Interact with simulated social engineers in real time and test your decision security.</p>
+            </div>
+
+            <div class="cyber-grid">
+                <!-- Scenario Selector -->
+                <div class="cyber-card scenario-selector">
+                    <h3>Available Simulations</h3>
+                    <div class="scenario-buttons">
+                        <button class="scenario-btn" onclick="startSimulation('bankOtp')" id="btnSimBank">
+                            <span class="scenario-title">🏦 Bank OTP Urgent Call</span>
+                            <span class="scenario-desc">A fraud prevention agent calls claiming your money is in danger.</span>
+                        </button>
+                        <button class="scenario-btn" onclick="startSimulation('lotteryScam')" id="btnSimLottery">
+                            <span class="scenario-title">🎉 International Prize Winner</span>
+                            <span class="scenario-desc">A WhatsApp message tells you that you've won $100,000.</span>
+                        </button>
+                        <button class="scenario-btn" onclick="startSimulation('relativeScam')" id="btnSimRelative">
+                            <span class="scenario-title">🚨 Relative Accident Crisis</span>
+                            <span class="scenario-desc">Your cousin Rahul requests urgent cash from an unknown number.</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Chat Simulation Panel -->
+                <div class="cyber-card chat-panel" id="chatPanel" style="display:none;">
+                    <div class="chat-header">
+                        <span class="chat-status-dot"></span>
+                        <h3 id="chatTitle">Simulation Active</h3>
+                    </div>
+                    <div class="chat-box" id="chatBox">
+                        <!-- Messages go here -->
+                    </div>
+                    <div class="chat-options" id="chatOptions">
+                        <!-- Choice buttons go here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ================= TAB 4: SECURITY CENTER ================= -->
+        <section id="dashTab" class="tab-content">
+            <div class="section-intro">
+                <h2>📊 Security Operations Center (SOC)</h2>
+                <p>Monitor your threat profiles, historical safety logs, security certification levels, and unlocked tactical badges.</p>
+            </div>
+
+            <div class="cyber-grid dash-grid">
+                <!-- Overall Shield Status -->
+                <div class="cyber-card dashboard-card central-gauge">
+                    <h3>Vigilance Shield Status</h3>
+                    <div class="shield-meter-wrapper">
+                        <div class="shield-circle">
+                            <div class="shield-percentage" id="shieldPerc">100%</div>
+                            <div class="shield-title" id="shieldStatus">UNASSESSED</div>
+                        </div>
+                    </div>
+                    <div class="shield-desc" id="shieldDesc">
+                        Complete behavioral profiles or simulator runs to charge your security shield.
+                    </div>
+                </div>
+
+                <!-- Unlocked Tactical Badges -->
+                <div class="cyber-card dashboard-card">
+                    <h3>Security Badges Unlocked</h3>
+                    <div class="badges-container" id="badgesContainer">
+                        <!-- Generated Dynamically -->
+                    </div>
+                </div>
+
+                <!-- Security Profile Logs -->
+                <div class="cyber-card dashboard-card full-width">
+                    <div class="card-header-flex">
+                        <h3>Assessment History Logs</h3>
+                        <button class="cyber-btn mini-btn" onclick="clearLogHistory()" id="btnClearHistory">Clear Data</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="cyber-table">
+                            <thead>
+                                <tr>
+                                    <th>Date/Time</th>
+                                    <th>Assessment Type</th>
+                                    <th>Metric Score</th>
+                                    <th>Threat Level</th>
+                                </tr>
+                            </thead>
+                            <tbody id="historyTableBody">
+                                <tr>
+                                    <td colspan="4" class="empty-table-text">No assessment profiles logged in local database.</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
 </div>
 
 <script>
 let lastResult = null;
 
-/* ===== QUESTIONS ===== */
-const questionsHTML = `
-<div class="question">
-  <label>Do you click links from unknown messages?</label>
-  <select name="q1">
-    <option value="A">Never</option>
-    <option value="B">Sometimes</option>
-    <option value="C">Often</option>
-  </select>
-</div>
+// Tab switcher
+function switchTab(tabId) {
+    document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+    
+    document.getElementById(tabId).classList.add('active');
+    
+    // Set active class on button
+    const targetBtn = Array.from(document.querySelectorAll('.tab-btn')).find(btn => 
+        btn.getAttribute('onclick').includes(tabId)
+    );
+    if (targetBtn) targetBtn.classList.add('active');
+    
+    if (tabId === 'dashTab') {
+        renderDashboard();
+    }
+}
 
-<div class="question">
-  <label>Have you ever shared OTP or verification codes?</label>
-  <select name="q2">
-    <option value="A">Never</option>
-    <option value="B">Once or twice</option>
-    <option value="C">Multiple times</option>
-  </select>
-</div>
+/* ===== QUESTION SET ===== */
+const questionsData = [
+    {
+        id: "q1",
+        label: "1. Do you click links in messages from unknown senders?",
+        options: [
+            { val: "A", text: "Never — I delete the message and block the sender." },
+            { val: "B", text: "Sometimes — if it looks legitimate or offers tracking information." },
+            { val: "C", text: "Often — I like to explore if the offer is interesting." }
+        ]
+    },
+    {
+        id: "q2",
+        label: "2. Have you ever shared an OTP or verification code with support agents or relatives?",
+        options: [
+            { val: "A", text: "Never — I know that OTPs are strictly confidential security keys." },
+            { val: "B", text: "Once or twice — in a hurry, to resolve technical login problems." },
+            { val: "C", text: "Multiple times — whenever asked by someone claiming to help me." }
+        ]
+    },
+    {
+        id: "q3",
+        label: "3. Do you use public Wi-Fi (airports, cafes) for financial transactions or logins?",
+        options: [
+            { val: "A", text: "Never — I use my cellular connection or an encrypted VPN tunnel." },
+            { val: "B", text: "Occasionally — but only for minor non-sensitive accounts." },
+            { val: "C", text: "Frequently — it saves cellular data and is convenient." }
+        ]
+    },
+    {
+        id: "q4",
+        label: "4. What is your password creation and management practice?",
+        options: [
+            { val: "A", text: "I generate unique, strong passwords saved inside a secure password manager." },
+            { val: "B", text: "I have a few password formulas and reuse them with minor tweaks." },
+            { val: "C", text: "I reuse one or two easy-to-remember passwords across most platforms." }
+        ]
+    },
+    {
+        id: "q5",
+        label: "5. How do you react to warnings saying 'Your Account is Suspended'?",
+        options: [
+            { val: "A", text: "I verify independently by logging in directly via official apps/websites." },
+            { val: "B", text: "I feel confused, search Google, or check social media status pages." },
+            { val: "C", text: "I act immediately on the message directions to prevent suspension." }
+        ]
+    },
+    {
+        id: "q6",
+        label: "6. Do you inspect app permissions requested during app installation?",
+        options: [
+            { val: "A", text: "Always — I restrict access to contacts, files, and location unless critical." },
+            { val: "B", text: "Sometimes — if the app requests something obviously unrelated." },
+            { val: "C", text: "Never — I accept all permissions to bypass the warning and start." }
+        ]
+    },
+    {
+        id: "q7",
+        label: "7. What accounts do you protect with Two-Factor Authentication (2FA)?",
+        options: [
+            { val: "A", text: "Yes — I activate 2FA on my email, banking, and primary social media." },
+            { val: "B", text: "Some accounts — only where the application prompts and forces it." },
+            { val: "C", text: "No — I find entering multiple verification steps slow and annoying." }
+        ]
+    }
+];
 
-<div class="question">
-  <label>Do you use public Wi-Fi for banking or sensitive logins?</label>
-  <select name="q3">
-    <option value="A">Never</option>
-    <option value="B">Occasionally</option>
-    <option value="C">Frequently</option>
-  </select>
-</div>
+// Generate dynamic question elements in HTML
+function renderQuestions() {
+    const questionsDiv = document.getElementById("questions");
+    questionsDiv.innerHTML = "";
+    
+    questionsData.forEach(q => {
+        const qContainer = document.createElement("div");
+        qContainer.className = "question-group";
+        
+        const label = document.createElement("label");
+        label.className = "question-label";
+        label.innerText = q.label;
+        qContainer.appendChild(label);
+        
+        const cardsWrapper = document.createElement("div");
+        cardsWrapper.className = "options-grid";
+        
+        q.options.forEach(opt => {
+            const card = document.createElement("label");
+            card.className = "option-card";
+            
+            const radio = document.createElement("input");
+            radio.type = "radio";
+            radio.name = q.id;
+            radio.value = opt.val;
+            radio.required = true;
+            
+            const cardBody = document.createElement("span");
+            cardBody.className = "option-card-body";
+            
+            // Text selection marker
+            const marker = document.createElement("span");
+            marker.className = "radio-marker";
+            
+            const text = document.createElement("span");
+            text.className = "option-text";
+            text.innerText = opt.text;
+            
+            cardBody.appendChild(marker);
+            cardBody.appendChild(text);
+            card.appendChild(radio);
+            card.appendChild(cardBody);
+            cardsWrapper.appendChild(card);
+        });
+        
+        qContainer.appendChild(cardsWrapper);
+        questionsDiv.appendChild(qContainer);
+    });
+}
 
-<div class="question">
-  <label>Do you reuse the same password across websites or apps?</label>
-  <select name="q4">
-    <option value="A">No</option>
-    <option value="B">Some sites</option>
-    <option value="C">Many sites</option>
-  </select>
-</div>
-
-<div class="question">
-  <label>How do you react to urgent security warnings?</label>
-  <select name="q5">
-    <option value="A">Verify first</option>
-    <option value="B">Get confused</option>
-    <option value="C">Act immediately</option>
-  </select>
-</div>
-
-<div class="question">
-  <label>Do you check app permissions before allowing access?</label>
-  <select name="q6">
-    <option value="A">Always</option>
-    <option value="B">Sometimes</option>
-    <option value="C">Never</option>
-  </select>
-</div>
-
-<div class="question">
-  <label>Do you use Two-Factor Authentication (2FA)?</label>
-  <select name="q7">
-    <option value="A">Yes</option>
-    <option value="B">Some accounts</option>
-    <option value="C">No</option>
-  </select>
-</div>
-`;
-
-/* ===== MODE LOGIC (BUG FIX) ===== */
+// Mode Selection Logic
 const mode = document.getElementById("mode");
 const threatSection = document.getElementById("threatSection");
 const threatType = document.getElementById("threatType");
@@ -137,74 +373,86 @@ const questionsDiv = document.getElementById("questions");
 const analyzeBtn = document.getElementById("analyzeBtn");
 
 mode.onchange = () => {
-    // Reset UI
     threatSection.style.display = "none";
     questionsDiv.style.display = "none";
     analyzeBtn.style.display = "none";
-    questionsDiv.innerHTML = "";
-
+    
     if (mode.value === "general") {
-        questionsDiv.innerHTML = questionsHTML;
+        renderQuestions();
         questionsDiv.style.display = "block";
         analyzeBtn.style.display = "block";
     }
-
+    
     if (mode.value === "threat") {
         threatSection.style.display = "block";
+        threatType.value = "";
     }
 };
 
 threatType.onchange = () => {
     if (threatType.value !== "") {
-        questionsDiv.innerHTML = questionsHTML;
+        renderQuestions();
         questionsDiv.style.display = "block";
         analyzeBtn.style.display = "block";
+    } else {
+        questionsDiv.style.display = "none";
+        analyzeBtn.style.display = "none";
     }
 };
 
-/* ===== SUBMIT ===== */
+/* ===== FORM SUBMIT & ANALYSIS ===== */
 document.getElementById("dnaForm").onsubmit = async (e) => {
     e.preventDefault();
-
+    
     let data = {};
     new FormData(e.target).forEach((v, k) => data[k] = v);
-
+    
     let response = await fetch("/analyze", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data)
     });
-
+    
     lastResult = await response.json();
-    let percent = Math.min((lastResult.total_score / 31) * 100, 100);
-
-    document.getElementById("result").innerHTML = `
-        <h2 class="${lastResult.risk_color.toLowerCase()}">
-            ${lastResult.risk_level}
-        </h2>
-
-        <div class="risk-meter">
-            <div class="risk-fill ${lastResult.risk_color.toLowerCase()}"
-                 style="width:${percent}%"></div>
+    let percent = Math.min((lastResult.total_score / 35) * 100, 100); // 35 is max score now
+    
+    const resultDiv = document.getElementById("testResult");
+    resultDiv.style.display = "block";
+    resultDiv.innerHTML = `
+        <div class="result-header">
+            <h3 class="result-title text-${lastResult.risk_color.toLowerCase()}">
+                Risk Evaluation: ${lastResult.risk_level}
+            </h3>
+            <span class="score-pill bg-${lastResult.risk_color.toLowerCase()}">
+                Score: ${lastResult.total_score} / 35
+            </span>
         </div>
-
-        <p><b>Score:</b> ${lastResult.total_score} / 31</p>
-
-        <h3>⚠️ Identified Weak Areas</h3>
-        <ul>
-            ${lastResult.weak_areas.length
-                ? lastResult.weak_areas.map(w => `<li>${w}</li>`).join("")
-                : "<li>No major weak areas detected</li>"}
-        </ul>
-
-        <h3>✅ Security Recommendations</h3>
-        <ul>
-            ${lastResult.recommendations.map(r => `<li>${r}</li>`).join("")}
-        </ul>
-
-        <button id="downloadBtn">Download PDF Report</button>
+        
+        <div class="risk-bar-container">
+            <div class="risk-bar-fill fill-${lastResult.risk_color.toLowerCase()}" style="width:${percent}%"></div>
+        </div>
+        
+        <div class="vulnerabilities-section">
+            <h4>⚠️ Identified Weak Areas</h4>
+            <ul class="vuln-list">
+                ${lastResult.weak_areas.length 
+                    ? lastResult.weak_areas.map(w => `<li><span class='bullet-icon'>✖</span> ${w}</li>`).join("")
+                    : "<li><span class='bullet-icon'>✔</span> No major behavioral risks flagged in this cycle.</li>"}
+            </ul>
+        </div>
+        
+        <div class="recommendations-section">
+            <h4>💡 Recommended Defenses</h4>
+            <ul class="rec-list">
+                ${lastResult.recommendations.map(r => `<li><span class='bullet-icon'>✔</span> ${r}</li>`).join("")}
+            </ul>
+        </div>
+        
+        <div class="result-actions">
+            <button id="downloadBtn" class="cyber-btn secondary">Download Official Security Report</button>
+        </div>
     `;
-
+    
     document.getElementById("downloadBtn").onclick = async () => {
         let r = await fetch("/download-report", {
             method: "POST",
@@ -214,11 +462,511 @@ document.getElementById("dnaForm").onsubmit = async (e) => {
         let blob = await r.blob();
         let a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = "Cyber_DNA_Report.pdf";
+        a.download = `Cyber_DNA_Report_${new Date().toISOString().slice(0,10)}.pdf`;
         a.click();
     };
+    
+    // Save to localStorage History
+    logHistoryEntry({
+        type: mode.value === "general" ? "General Risk Assessment" : `Threat Check (${threatType.value})`,
+        score: `${lastResult.total_score} / 35`,
+        level: lastResult.risk_level,
+        color: lastResult.risk_color,
+        raw_score: lastResult.total_score,
+        max_score: 35
+    });
+    
+    resultDiv.scrollIntoView({ behavior: 'smooth' });
+};
+
+/* ===== TEXT PHISHING ANALYZER ===== */
+async function runPhishingScan() {
+    const text = document.getElementById("phishText").value.trim();
+    if (!text) {
+        alert("Please paste some text into the scanner input before running scan.");
+        return;
+    }
+    
+    const scanBtn = document.getElementById("scanBtn");
+    scanBtn.disabled = true;
+    scanBtn.querySelector('.btn-text').innerText = "Scanning Corpus...";
+    
+    try {
+        let response = await fetch("/analyze-text", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: text })
+        });
+        
+        let result = await response.json();
+        const resDiv = document.getElementById("phishResult");
+        resDiv.style.display = "block";
+        
+        // Render details
+        let scorePercent = result.phishing_score;
+        let detectedBadges = "";
+        
+        for (let cat in result.indicators_detected) {
+            let list = result.indicators_detected[cat];
+            if (list.length > 0) {
+                detectedBadges += `<span class="indicator-badge badge-warn">${cat.toUpperCase()}: ${list.join(', ')}</span>`;
+            }
+        }
+        
+        if (!detectedBadges) {
+            detectedBadges = `<span class="indicator-badge badge-safe">No toxic keywords flagged</span>`;
+        }
+        
+        resDiv.innerHTML = `
+            <div class="result-header">
+                <h3>Message Threat Analysis</h3>
+                <span class="score-pill bg-${result.risk_color.toLowerCase()}">
+                    Threat Score: ${result.phishing_score}/100
+                </span>
+            </div>
+            
+            <div class="risk-bar-container">
+                <div class="risk-bar-fill fill-${result.risk_color.toLowerCase()}" style="width:${scorePercent}%"></div>
+            </div>
+            
+            <div class="analysis-verdict">
+                <p><strong>Security Classification:</strong> <span class="text-${result.risk_color.toLowerCase()}">${result.risk_level}</span></p>
+                <p class="verdict-exp">${result.explanation}</p>
+            </div>
+            
+            <div class="detected-signals">
+                <h5>Extracted Threat Indicators</h5>
+                <div class="badge-list">${detectedBadges}</div>
+            </div>
+            
+            <div class="recommendations-section">
+                <h5>Actions Required</h5>
+                <ul class="rec-list">
+                    ${result.tips.map(tip => `<li><span class='bullet-icon'>✔</span> ${tip}</li>`).join("")}
+                </ul>
+            </div>
+        `;
+        
+        // Save to localStorage history
+        logHistoryEntry({
+            type: "Phishing Text Scan",
+            score: `${result.phishing_score}/100`,
+            level: result.risk_level,
+            color: result.risk_color,
+            raw_score: result.phishing_score,
+            max_score: 100
+        });
+        
+    } catch(err) {
+        console.error(err);
+        alert("Server communication error during text scanning.");
+    } finally {
+        scanBtn.disabled = false;
+        scanBtn.querySelector('.btn-text').innerText = "Initiate Security Scan";
+    }
+}
+
+/* ===== INTERACTIVE SCAM SIMULATOR ===== */
+const scenarios = {
+    bankOtp: {
+        title: "🏦 Bank Fraud Department Call",
+        stages: [
+            {
+                text: "<b>Unknown Caller:</b> 'Alert! We detected an unauthorized attempt to transfer $500 from your account to a crypto exchange. To prevent this, we have blocked your card. I've sent a 6-digit confirmation code to your phone. Please read it to me to reverse this transfer immediately.'",
+                choices: [
+                    {
+                        text: "Provide code: 'Sure, it is 482931.'",
+                        scoreEffect: 35,
+                        feedback: "🔴 <b>Compromised!</b> You shared your OTP. The scammer completed the transaction on their device. Banks never ask for OTPs over calls.",
+                        nextStage: null
+                    },
+                    {
+                        text: "Doubt identity: 'How do I verify you are actually calling from my bank?'",
+                        scoreEffect: 15,
+                        feedback: "⚠️ <b>Vulnerable:</b> You engaged with the caller. Social engineers are highly trained to manipulate you with fake credentials.",
+                        nextStage: "bankDoubt"
+                    },
+                    {
+                        text: "Hang up: 'I will not share verification codes. I am calling my bank support directly.'",
+                        scoreEffect: 0,
+                        feedback: "🟢 <b>Vigilant!</b> Hanging up immediately and dialing the official customer care number on your physical debit card is the safest action.",
+                        nextStage: null
+                    }
+                ]
+            },
+            {
+                id: "bankDoubt",
+                text: "<b>Caller:</b> 'Sir, look at the SMS sender name—it says BANK_ALERT. This is a secure system. If you do not give me the code right now, your account will be frozen permanently.'",
+                choices: [
+                    {
+                        text: "Panick and give the code.",
+                        scoreEffect: 35,
+                        feedback: "🔴 <b>Compromised!</b> The SMS sender ID was spoofed. Real banks never threaten immediate account suspension to force disclosure of OTP codes.",
+                        nextStage: null
+                    },
+                    {
+                        text: "Hang up instantly and check banking app.",
+                        scoreEffect: 0,
+                        feedback: "🟢 <b>Vigilant!</b> You successfully bypass the psychological pressure of urgency. You are secure.",
+                        nextStage: null
+                    }
+                ]
+            }
+        ]
+    },
+    lotteryScam: {
+        title: "🎉 International Megamillions Winning Alert",
+        stages: [
+            {
+                text: "<b>Sender [Unknown WhatsApp]:</b> 'CONGRATULATIONS! Your mobile number has won a cash prize of $100,000. To release your reward, click the link: <u>http://lottery-claim.cc/win</u> or register within 2 hours.'",
+                choices: [
+                    {
+                        text: "Click link: Open the portal.",
+                        scoreEffect: 35,
+                        feedback: "🔴 <b>Compromised!</b> The link contains a credential harvesting page designed to steal passwords. Never click unknown external links.",
+                        nextStage: null
+                    },
+                    {
+                        text: "Reply: 'How can I get my money without the link?'",
+                        scoreEffect: 15,
+                        feedback: "⚠️ <b>Vulnerable:</b> Replying informs scammers that this phone line is active and checked, leading to targeted spam campaigns.",
+                        nextStage: "lotteryChat"
+                    },
+                    {
+                        text: "Block & Report number.",
+                        scoreEffect: 0,
+                        feedback: "🟢 <b>Vigilant!</b> Standard safety protocol. Unsolicited lottery notifications for tickets you never purchased are scams.",
+                        nextStage: null
+                    }
+                ]
+            },
+            {
+                id: "lotteryChat",
+                text: "<b>Sender:</b> 'You must pay a processing tax of $50 via Google Play Gift Cards to receive the payout. Use this link to verify your code.'",
+                choices: [
+                    {
+                        text: "Purchase gift cards and send codes.",
+                        scoreEffect: 40,
+                        feedback: "🔴 <b>Compromised!</b> Classic advance-fee fraud. Legitimate sweepstakes never request payouts in gift cards or crypto.",
+                        nextStage: null
+                    },
+                    {
+                        text: "Refuse, block, and flag spam.",
+                        scoreEffect: 0,
+                        feedback: "🟢 <b>Vigilant!</b> You aborted the interaction. Security maintained.",
+                        nextStage: null
+                    }
+                ]
+            }
+        ]
+    },
+    relativeScam: {
+        title: "🚨 Urgent Cousin Help Request",
+        stages: [
+            {
+                text: "<b>SMS [Unknown number]:</b> 'Hey, it's cousin Rahul. I was on a trip and had an accident. My phone screen is broken, so I'm using a friend's phone. I need $150 to pay the towing truck. Send it to UPI: rahul.pay@upi'",
+                choices: [
+                    {
+                        text: "Transfer money immediately to help.",
+                        scoreEffect: 35,
+                        feedback: "🔴 <b>Compromised!</b> You sent money to an impersonator without verifying. Always verify request identities first.",
+                        nextStage: null
+                    },
+                    {
+                        text: "Bait scammer: 'How is your dog Rocky?' (knowing Rocky doesn't exist).",
+                        scoreEffect: 10,
+                        feedback: "🟡 <b>Clever check:</b> Testing relative details shows vigilance. However, a secondary voice call is the definitive verification tool.",
+                        nextStage: "relativeVerify"
+                    },
+                    {
+                        text: "Call Rahul directly on his known contact number.",
+                        scoreEffect: 0,
+                        feedback: "🟢 <b>Vigilant!</b> The only secure way to verify a relative emergency is to speak to them via trusted communication channels.",
+                        nextStage: null
+                    }
+                ]
+            },
+            {
+                id: "relativeVerify",
+                text: "<b>Cousin:</b> 'Rocky is fine, he's at home! Please transfer the money, the driver is getting angry.'",
+                choices: [
+                    {
+                        text: "Realize he is lying (there is no Rocky) and block him.",
+                        scoreEffect: 0,
+                        feedback: "🟢 <b>Vigilant!</b> You caught them in a contradiction. Scenario terminated securely.",
+                        nextStage: null
+                    },
+                    {
+                        text: "Send money anyway, maybe he was confused.",
+                        scoreEffect: 35,
+                        feedback: "🔴 <b>Compromised!</b> You ignored a verified warning sign and funded a social engineering scam.",
+                        nextStage: null
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+let currentScenario = null;
+let currentStageIndex = 0;
+let simulationScore = 0;
+
+function startSimulation(key) {
+    currentScenario = scenarios[key];
+    currentStageIndex = 0;
+    simulationScore = 0;
+    
+    document.getElementById("chatPanel").style.display = "block";
+    document.getElementById("chatTitle").innerText = currentScenario.title;
+    
+    // Clear chat box
+    const chatBox = document.getElementById("chatBox");
+    chatBox.innerHTML = `
+        <div class="chat-system-message">Simulation Started: ${currentScenario.title}</div>
+    `;
+    
+    renderStage();
+    chatBox.scrollIntoView({ behavior: 'smooth' });
+}
+
+function renderStage() {
+    const chatBox = document.getElementById("chatBox");
+    const optionsDiv = document.getElementById("chatOptions");
+    
+    let stage = null;
+    if (currentStageIndex === 0) {
+        stage = currentScenario.stages[0];
+    } else {
+        // Find by id
+        let stageId = currentScenario.stages[0].choices[selectedChoiceIndex].nextStage;
+        stage = currentScenario.stages.find(s => s.id === stageId);
+    }
+    
+    // Scammer bubble
+    const scammerMsg = document.createElement("div");
+    scammerMsg.className = "message bubble-scammer";
+    scammerMsg.innerHTML = stage.text;
+    chatBox.appendChild(scammerMsg);
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+    // Choices
+    optionsDiv.innerHTML = "";
+    stage.choices.forEach((choice, idx) => {
+        const btn = document.createElement("button");
+        btn.className = "choice-btn";
+        btn.innerText = choice.text;
+        btn.onclick = () => selectChoice(choice, idx);
+        optionsDiv.appendChild(btn);
+    });
+}
+
+let selectedChoiceIndex = 0;
+
+function selectChoice(choice, idx) {
+    const chatBox = document.getElementById("chatBox");
+    const optionsDiv = document.getElementById("chatOptions");
+    
+    // User bubble
+    const userMsg = document.createElement("div");
+    userMsg.className = "message bubble-user";
+    userMsg.innerText = choice.text;
+    chatBox.appendChild(userMsg);
+    
+    // Feedback bubble
+    const fbMsg = document.createElement("div");
+    fbMsg.className = "message bubble-system";
+    fbMsg.innerHTML = choice.feedback;
+    chatBox.appendChild(fbMsg);
+    
+    simulationScore += choice.scoreEffect;
+    
+    chatBox.scrollTop = chatBox.scrollHeight;
+    
+    // Next step
+    if (choice.nextStage) {
+        selectedChoiceIndex = idx;
+        currentStageIndex++;
+        optionsDiv.innerHTML = "";
+        setTimeout(renderStage, 800);
+    } else {
+        // End simulation
+        optionsDiv.innerHTML = "";
+        const endMsg = document.createElement("div");
+        endMsg.className = "chat-system-message";
+        
+        let level = "Vigilant";
+        let color = "Green";
+        if (simulationScore >= 35) {
+            level = "Compromised";
+            color = "Red";
+        } else if (simulationScore > 0) {
+            level = "Vulnerable";
+            color = "Yellow";
+        }
+        
+        endMsg.innerHTML = `Simulation Ended.<br><b>Overall Score:</b> ${simulationScore}/35<br><b>Reflex Level:</b> <span class="text-${color.toLowerCase()}">${level}</span>`;
+        chatBox.appendChild(endMsg);
+        chatBox.scrollTop = chatBox.scrollHeight;
+        
+        // Log to dashboard
+        logHistoryEntry({
+            type: `Simulator (${currentScenario.title.split(' ')[1] || 'Scam'})`,
+            score: `${simulationScore}/35`,
+            level: level,
+            color: color,
+            raw_score: simulationScore,
+            max_score: 35
+        });
+    }
+}
+
+/* ===== LOCAL STORAGE & DASHBOARD CENTER ===== */
+function getHistory() {
+    let raw = localStorage.getItem("cyber_dna_history");
+    return raw ? JSON.parse(raw) : [];
+}
+
+function logHistoryEntry(entry) {
+    let history = getHistory();
+    entry.timestamp = new Date().toLocaleString();
+    history.unshift(entry); // Newest first
+    localStorage.setItem("cyber_dna_history", JSON.stringify(history));
+    
+    // Trigger dashboard refresh if open
+    if (document.getElementById("dashTab").classList.contains("active")) {
+        renderDashboard();
+    }
+}
+
+function clearLogHistory() {
+    if (confirm("Are you sure you want to clear your local assessment history logs?")) {
+        localStorage.removeItem("cyber_dna_history");
+        renderDashboard();
+    }
+}
+
+function renderDashboard() {
+    let history = getHistory();
+    const tableBody = document.getElementById("historyTableBody");
+    
+    if (history.length === 0) {
+        tableBody.innerHTML = `
+            <tr>
+                <td colspan="4" class="empty-table-text">No assessment profiles logged in local database.</td>
+            </tr>
+        `;
+        document.getElementById("shieldPerc").innerText = "0%";
+        document.getElementById("shieldStatus").innerText = "UNASSESSED";
+        document.getElementById("shieldDesc").innerText = "Take the Cyber DNA Test or play the Scam Simulator to build your security shield.";
+        renderBadges([]);
+        return;
+    }
+    
+    // Fill Table
+    tableBody.innerHTML = "";
+    history.forEach(item => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${item.timestamp}</td>
+            <td>${item.type}</td>
+            <td>${item.score}</td>
+            <td><span class="status-indicator stat-${item.color.toLowerCase()}">${item.level}</span></td>
+        `;
+        tableBody.appendChild(tr);
+    });
+    
+    // Compute stats
+    let totalAssessed = history.length;
+    let totalScoreSum = 0;
+    let countScoreRuns = 0;
+    
+    history.forEach(item => {
+        // Calculate a percentage based on score (since low score is safe for test but high threat score is bad for phish)
+        let normalized = 0;
+        if (item.type.includes("Phishing") || item.type.includes("Simulator")) {
+            // High is threat, so protection is 100 - score%
+            normalized = 100 - ((item.raw_score / item.max_score) * 100);
+        } else {
+            // Risk evaluation questionnaire, low is safe. Let's compute safety percent
+            // Score ranges from 7 (all A) to 35 (all C).
+            // A score of 7 = 100% safe, 35 = 0% safe.
+            normalized = Math.max(0, 100 - (((item.raw_score - 7) / 28) * 100));
+        }
+        totalScoreSum += normalized;
+        countScoreRuns++;
+    });
+    
+    let protectionIndex = Math.round(totalScoreSum / countScoreRuns);
+    document.getElementById("shieldPerc").innerText = `${protectionIndex}%`;
+    
+    let shieldStatus = "UNPROTECTED";
+    let shieldDesc = "";
+    
+    if (protectionIndex >= 85) {
+        shieldStatus = "FORTIFIED";
+        shieldDesc = "Fantastic work! Your safety habits, detection metrics, and simulated responses prove you are a hard target for hackers.";
+    } else if (protectionIndex >= 50) {
+        shieldStatus = "VIGILANT";
+        shieldDesc = "Moderate protection. You understand some warnings but still have habits that leave your accounts exposed to target scams.";
+    } else {
+        shieldStatus = "VULNERABLE";
+        shieldDesc = "Critical weaknesses. Your behavior or simulator runs indicate high vulnerability to social engineering scams.";
+    }
+    
+    document.getElementById("shieldStatus").innerText = shieldStatus;
+    document.getElementById("shieldDesc").innerText = shieldDesc;
+    
+    // Badges logic
+    let badges = [];
+    let testRuns = history.filter(h => h.type.includes("Assessment")).length;
+    let phishRuns = history.filter(h => h.type.includes("Phishing")).length;
+    let simRuns = history.filter(h => h.type.includes("Simulator")).length;
+    
+    if (testRuns > 0) badges.push({ title: "Geneticist", icon: "🧬", desc: "Completed a behavior profile test" });
+    if (simRuns > 0) {
+        let perfectSim = history.find(h => h.type.includes("Simulator") && h.raw_score === 0);
+        if (perfectSim) {
+            badges.push({ title: "Social Engineer Deflector", icon: "⚔️", desc: "Achieved a perfect score in a scam scenario" });
+        } else {
+            badges.push({ title: "Combat Trainee", icon: "🎯", desc: "Completed an interactive scam simulation run" });
+        }
+    }
+    if (phishRuns > 0) badges.push({ title: "Phishing Analyst", icon: "🔍", desc: "Analyzed external text for indicators" });
+    if (protectionIndex >= 90 && totalAssessed >= 3) {
+        badges.push({ title: "Cyber DNA Sentinel", icon: "👑", desc: "Maintained a Fortified Shield over multiple checks" });
+    }
+    
+    renderBadges(badges);
+}
+
+function renderBadges(badges) {
+    const container = document.getElementById("badgesContainer");
+    if (badges.length === 0) {
+        container.innerHTML = `<div class="empty-table-text">No tactical security badges earned yet. Complete challenges to unlock.</div>`;
+        return;
+    }
+    
+    container.innerHTML = "";
+    badges.forEach(b => {
+        const el = document.createElement("div");
+        el.className = "badge-card";
+        el.innerHTML = `
+            <div class="badge-icon">${b.icon}</div>
+            <div class="badge-info">
+                <h4>${b.title}</h4>
+                <p>${b.desc}</p>
+            </div>
+        `;
+        container.appendChild(el);
+    });
+}
+
+// Initial dashboard loader
+window.onload = () => {
+    // Initial content setup
+    switchTab('testTab');
 };
 </script>
-
 </body>
 </html>

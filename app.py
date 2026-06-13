@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_file
-from logic import analyze_responses
+from logic import analyze_responses, analyze_text_phishing
 from reportlab.lib.pagesizes import A4
 from reportlab.pdfgen import canvas
 from io import BytesIO
@@ -16,6 +16,14 @@ def analyze():
     data = request.json
     result = analyze_responses(data)
     return jsonify(result)
+
+@app.route("/analyze-text", methods=["POST"])
+def analyze_text():
+    data = request.json
+    text = data.get("text", "")
+    result = analyze_text_phishing(text)
+    return jsonify(result)
+
 
 @app.route("/download-report", methods=["POST"])
 def download_report():
@@ -39,7 +47,7 @@ def download_report():
     pdf.setFont("Helvetica-Bold", 12)
     pdf.drawString(50, height - 115, "Risk Score:")
     pdf.setFont("Helvetica", 12)
-    pdf.drawString(230, height - 115, f"{data['total_score']} / 31")
+    pdf.drawString(230, height - 115, f"{data['total_score']} / 35")
 
     # ===== WEAK AREAS =====
     y = height - 160
