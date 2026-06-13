@@ -912,6 +912,34 @@ select:focus {
     color: var(--text-secondary);
 }
 
+/* SOC Dashboard Sidebar Layout */
+.soc-dashboard-layout {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 24px;
+    align-items: start;
+}
+
+.soc-profile-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.soc-ops-column {
+    display: flex;
+    flex-direction: column;
+}
+
+.soc-logs-full {
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .soc-dashboard-layout {
+        grid-template-columns: 1fr;
+    }
+}
+
 /* Assessment logs table */
 .full-width {
     grid-column: span 2;

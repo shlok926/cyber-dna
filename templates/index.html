@@ -232,54 +232,62 @@
                 <p>Monitor your threat profiles, historical safety logs, security certification levels, and unlocked tactical badges.</p>
             </div>
 
-            <div class="cyber-grid dash-grid">
-                <!-- Overall Shield Status -->
-                <div class="cyber-card dashboard-card central-gauge">
-                    <h3>Vigilance Shield Status</h3>
-                    <div class="shield-meter-wrapper">
-                        <div class="shield-circle">
-                            <div class="shield-percentage" id="shieldPerc">100%</div>
-                            <div class="shield-title" id="shieldStatus">UNASSESSED</div>
+            <div class="soc-dashboard-layout">
+                <!-- Left Column: Metrics & Badges -->
+                <div class="soc-profile-column">
+                    <!-- Overall Shield Status -->
+                    <div class="cyber-card dashboard-card central-gauge" style="margin-bottom: 24px;">
+                        <h3>Vigilance Shield Status</h3>
+                        <div class="shield-meter-wrapper">
+                            <div class="shield-circle">
+                                <div class="shield-percentage" id="shieldPerc">100%</div>
+                                <div class="shield-title" id="shieldStatus">UNASSESSED</div>
+                            </div>
+                        </div>
+                        <div class="shield-desc" id="shieldDesc">
+                            Complete behavioral profiles or simulator runs to charge your security shield.
                         </div>
                     </div>
-                    <div class="shield-desc" id="shieldDesc">
-                        Complete behavioral profiles or simulator runs to charge your security shield.
+
+                    <!-- Unlocked Tactical Badges -->
+                    <div class="cyber-card dashboard-card">
+                        <h3>Security Badges Unlocked</h3>
+                        <div class="badges-container" id="badgesContainer">
+                            <!-- Generated Dynamically -->
+                        </div>
                     </div>
                 </div>
 
-                <!-- OSINT Leak Scan Card -->
+                <!-- Right Column: Operations & Threat Intel -->
+                <div class="soc-ops-column">
+                    <!-- OSINT Leak Scan Card -->
+                    <div class="cyber-card dashboard-card" style="margin-bottom: 24px;">
+                        <h3>OSINT Leak Exposure Scan</h3>
+                        <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px;">Check if your email credentials have been leaked in public dark web database breaches.</p>
+                        
+                        <div style="display: flex; gap: 8px; margin-bottom: 15px;">
+                            <input type="email" id="osintEmailInput" placeholder="Enter email address..." class="cyber-textarea" style="height: auto; padding: 10px; font-size: 13px; flex-grow: 1; margin-bottom: 0;" />
+                            <button type="button" class="cyber-btn secondary" style="padding: 10px 16px; width: auto; margin-top: 0;" onclick="runOsintScan()" id="btnOsintScan">Scan</button>
+                        </div>
+                        
+                        <div id="osintResults" style="display:none;">
+                            <!-- Results dynamically populated -->
+                        </div>
+                    </div>
+
+                    <!-- Active Threat Intelligence Bulletin -->
+                    <div class="cyber-card dashboard-card">
+                        <h3>Active Threat Intelligence Bulletin</h3>
+                        <div id="alertsContainer" class="alerts-grid">
+                            <div class="empty-table-text">Loading latest regional threat alerts...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Row: Log History -->
+            <div class="soc-logs-full" style="margin-top: 24px;">
                 <div class="cyber-card dashboard-card">
-                    <h3>OSINT Leak Exposure Scan</h3>
-                    <p style="font-size: 12px; color: var(--text-secondary); margin-bottom: 15px;">Check if your email credentials have been leaked in public dark web database breaches.</p>
-                    
-                    <div style="display: flex; gap: 8px; margin-bottom: 15px;">
-                        <input type="email" id="osintEmailInput" placeholder="Enter email address..." class="cyber-textarea" style="height: auto; padding: 10px; font-size: 13px; flex-grow: 1; margin-bottom: 0;" />
-                        <button type="button" class="cyber-btn secondary" style="padding: 10px 16px; width: auto; margin-top: 0;" onclick="runOsintScan()" id="btnOsintScan">Scan</button>
-                    </div>
-                    
-                    <div id="osintResults" style="display:none;">
-                        <!-- Results dynamically populated -->
-                    </div>
-                </div>
-
-                <!-- Unlocked Tactical Badges -->
-                <div class="cyber-card dashboard-card">
-                    <h3>Security Badges Unlocked</h3>
-                    <div class="badges-container" id="badgesContainer">
-                        <!-- Generated Dynamically -->
-                    </div>
-                </div>
-
-                <!-- Active Threat Intelligence Bulletin -->
-                <div class="cyber-card dashboard-card full-width">
-                    <h3>Active Threat Intelligence Bulletin</h3>
-                    <div id="alertsContainer" class="alerts-grid">
-                        <div class="empty-table-text">Loading latest regional threat alerts...</div>
-                    </div>
-                </div>
-
-                <!-- Security Profile Logs -->
-                <div class="cyber-card dashboard-card full-width">
                     <div class="card-header-flex">
                         <h3>Assessment History Logs</h3>
                         <button class="cyber-btn mini-btn" onclick="clearLogHistory()" id="btnClearHistory">Clear Data</button>
