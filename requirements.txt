@@ -1,3 +1,7 @@
 flask
 gunicorn
 reportlab
+requests
+feedparser
+beautifulsoup4
+
