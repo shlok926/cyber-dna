@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber DNA – Security Risk Command Center</title>
+    <title>ChetnaScan AI – Security Risk Command Center</title>
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -17,13 +17,11 @@
 <div class="container">
     <!-- TOP BANNER / HEADER -->
     <header class="header">
-        <div class="logo-area">
-            <svg class="logo-shield-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-            </svg>
+        <div class="logo-area" style="padding: 0; overflow: hidden; border: none; background: transparent; width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; border-radius: 12px;">
+            <img src="/static/logo.png" alt="ChetnaScan AI Logo" style="width: 100%; height: 100%; object-fit: cover; border-radius: 12px;" />
         </div>
         <div class="title-meta">
-            <h1 class="main-title">Cyber DNA</h1>
+            <h1 class="main-title">ChetnaScan AI</h1>
             <p class="subtitle">Adaptive Human Cybersecurity Assessment Command</p>
         </div>
         <div class="header-right" style="display: flex; align-items: center; gap: 20px; margin-left: auto;">
@@ -97,7 +95,7 @@
 
                 <!-- Action Button -->
                 <button type="submit" id="analyzeBtn" class="cyber-btn" style="display:none;">
-                    <span class="btn-text">Generate Cyber DNA Profile</span>
+                    <span class="btn-text">Generate ChetnaScan AI Profile</span>
                     <span class="btn-glow"></span>
                 </button>
             </form>
@@ -632,7 +630,7 @@ document.getElementById("dnaForm").onsubmit = async (e) => {
         let blob = await r.blob();
         let a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `Cyber_DNA_Report_${new Date().toISOString().slice(0,10)}.pdf`;
+        a.download = `ChetnaScan_AI_Report_${new Date().toISOString().slice(0,10)}.pdf`;
         a.click();
     };
     
@@ -1139,7 +1137,7 @@ function selectChoice(choice, idx) {
 
 /* ===== LOCAL STORAGE & DASHBOARD CENTER ===== */
 function getHistory() {
-    let raw = localStorage.getItem("cyber_dna_history");
+    let raw = localStorage.getItem("chetnascan_ai_history");
     return raw ? JSON.parse(raw) : [];
 }
 
@@ -1147,7 +1145,7 @@ function logHistoryEntry(entry) {
     let history = getHistory();
     entry.timestamp = new Date().toLocaleString();
     history.unshift(entry); // Newest first
-    localStorage.setItem("cyber_dna_history", JSON.stringify(history));
+    localStorage.setItem("chetnascan_ai_history", JSON.stringify(history));
     
     // Trigger dashboard refresh if open
     if (document.getElementById("dashTab").classList.contains("active")) {
@@ -1157,9 +1155,9 @@ function logHistoryEntry(entry) {
 
 function clearLogHistory() {
     if (confirm("Are you sure you want to clear your local assessment history logs and OSINT scans?")) {
-        localStorage.removeItem("cyber_dna_history");
-        localStorage.removeItem("cyber_dna_osint_exposure");
-        localStorage.removeItem("cyber_dna_osint_result");
+        localStorage.removeItem("chetnascan_ai_history");
+        localStorage.removeItem("chetnascan_ai_osint_exposure");
+        localStorage.removeItem("chetnascan_ai_osint_result");
         
         const emailInput = document.getElementById("osintEmailInput");
         if (emailInput) emailInput.value = "";
@@ -1179,8 +1177,8 @@ function renderDashboard() {
     const tableBody = document.getElementById("historyTableBody");
     
     // Read OSINT exposure
-    let osintExposure = parseInt(localStorage.getItem("cyber_dna_osint_exposure") || "0");
-    let osintResultRaw = localStorage.getItem("cyber_dna_osint_result");
+    let osintExposure = parseInt(localStorage.getItem("chetnascan_ai_osint_exposure") || "0");
+    let osintResultRaw = localStorage.getItem("chetnascan_ai_osint_result");
     if (osintResultRaw) {
         try {
             renderOsintResults(JSON.parse(osintResultRaw));
@@ -1198,7 +1196,7 @@ function renderDashboard() {
         
         let protectionIndex = 0;
         let shieldStatus = "UNASSESSED";
-        let shieldDesc = "Take the Cyber DNA Test or play the Scam Simulator to build your security shield.";
+        let shieldDesc = "Take the ChetnaScan AI Test or play the Scam Simulator to build your security shield.";
         
         if (osintExposure > 0) {
             protectionIndex = Math.max(0, 100 - Math.round(osintExposure * 0.4));
@@ -1292,7 +1290,7 @@ function renderDashboard() {
     }
     if (phishRuns > 0) badges.push({ title: "Phishing Analyst", desc: "Analyzed external text for indicators" });
     if (protectionIndex >= 90 && totalAssessed >= 3) {
-        badges.push({ title: "Cyber DNA Sentinel", desc: "Maintained a Fortified Shield over multiple checks" });
+        badges.push({ title: "ChetnaScan AI Sentinel", desc: "Maintained a Fortified Shield over multiple checks" });
     }
     
     renderBadges(badges);
@@ -1301,7 +1299,7 @@ function renderDashboard() {
 async function downloadComprehensiveReport() {
     let history = getHistory();
     let osintResult = null;
-    let osintResultRaw = localStorage.getItem("cyber_dna_osint_result");
+    let osintResultRaw = localStorage.getItem("chetnascan_ai_osint_result");
     if (osintResultRaw) {
         try {
             osintResult = JSON.parse(osintResultRaw);
@@ -1310,10 +1308,10 @@ async function downloadComprehensiveReport() {
         }
     }
     
-    let osintExposure = parseInt(localStorage.getItem("cyber_dna_osint_exposure") || "0");
+    let osintExposure = parseInt(localStorage.getItem("chetnascan_ai_osint_exposure") || "0");
     let protectionIndex = 100;
     let shieldStatus = "UNASSESSED";
-    let shieldDesc = "Take the Cyber DNA Test or play the Scam Simulator to build your security shield.";
+    let shieldDesc = "Take the ChetnaScan AI Test or play the Scam Simulator to build your security shield.";
     
     if (history.length === 0) {
         if (osintExposure > 0) {
@@ -1376,7 +1374,7 @@ async function downloadComprehensiveReport() {
     }
     if (phishRuns > 0) badges.push({ title: "Phishing Analyst", desc: "Analyzed external text for indicators" });
     if (protectionIndex >= 90 && history.length >= 3) {
-        badges.push({ title: "Cyber DNA Sentinel", desc: "Maintained a Fortified Shield over multiple checks" });
+        badges.push({ title: "ChetnaScan AI Sentinel", desc: "Maintained a Fortified Shield over multiple checks" });
     }
 
     try {
@@ -1398,7 +1396,7 @@ async function downloadComprehensiveReport() {
         let blob = await r.blob();
         let a = document.createElement("a");
         a.href = URL.createObjectURL(blob);
-        a.download = `Cyber_DNA_Comprehensive_Audit_${new Date().toISOString().slice(0,10)}.pdf`;
+        a.download = `ChetnaScan_AI_Comprehensive_Audit_${new Date().toISOString().slice(0,10)}.pdf`;
         a.click();
     } catch(err) {
         console.error(err);
@@ -1434,8 +1432,8 @@ async function runOsintScan() {
             return;
         }
         
-        localStorage.setItem("cyber_dna_osint_exposure", result.exposure_score);
-        localStorage.setItem("cyber_dna_osint_result", JSON.stringify(result));
+        localStorage.setItem("chetnascan_ai_osint_exposure", result.exposure_score);
+        localStorage.setItem("chetnascan_ai_osint_result", JSON.stringify(result));
         
         renderOsintResults(result);
         renderDashboard();
@@ -1596,12 +1594,12 @@ if ('Notification' in window && Notification.permission === 'default') {
 }
 
 function getAlerts() {
-    const raw = localStorage.getItem("cyber_dna_alerts");
+    const raw = localStorage.getItem("chetnascan_ai_alerts");
     return raw ? JSON.parse(raw) : [];
 }
 
 function saveAlerts(alerts) {
-    localStorage.setItem("cyber_dna_alerts", JSON.stringify(alerts));
+    localStorage.setItem("chetnascan_ai_alerts", JSON.stringify(alerts));
     renderAlerts();
 }
 
@@ -1626,7 +1624,7 @@ function addAlert(title, desc, severity, remediationHtml = "") {
     // Trigger Desktop Notification if permitted
     if ('Notification' in window && Notification.permission === 'granted') {
         const iconEmoji = severity === 'critical' ? '🔴' : (severity === 'warning' ? '🟡' : '🔵');
-        new Notification(`${iconEmoji} Cyber DNA Security Alert`, {
+        new Notification(`${iconEmoji} ChetnaScan AI Security Alert`, {
             body: `${title}: ${desc}`,
             tag: newAlert.id
         });
