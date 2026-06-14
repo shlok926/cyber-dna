@@ -8,3 +8,4 @@ Codes.txt
 venv/
 env/
 !static/logo.png
+!static/social_preview.png
