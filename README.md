@@ -19,6 +19,13 @@
 </p>
 
 <p align="center">
+  <a href="https://chetnascan-ai.vercel.app/" target="_blank">
+    <img src="https://img.shields.io/badge/🚀_LAUNCH_LIVE_DEMO-ChetnaScan_AI-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Launch Live App">
+  </a>
+</p>
+
+<p align="center">
+  <a href="https://chetnascan-ai.vercel.app/" target="_blank">🌐 Live App</a> •
   <a href="#-key-features">✨ Features</a> •
   <a href="#-tech-stack">💻 Tech Stack</a> •
   <a href="#%EF%B8%8F-installation--setup">🚀 Installation</a> •
@@ -90,8 +97,8 @@
 
 ### 1. Clone the Repository
 ```bash
-git clone https://github.com/shlok926/cyber-dna.git
-cd cyber-dna
+git clone https://github.com/shlok926/chetnascan-ai.git
+cd chetnascan-ai
 ```
 
 ### 2. Set Up Virtual Environment (Recommended)
@@ -165,7 +172,7 @@ This software is provided for educational and cybersecurity awareness purposes o
 
 Contributions, suggestions, and feedback are highly welcome!
 
-* **Got suggestions or feature requests?** Feel free to open a new [Issue](https://github.com/shlok926/cyber-dna/issues) or share your ideas.
+* **Got suggestions or feature requests?** Feel free to open a new [Issue](https://github.com/shlok926/chetnascan-ai/issues) or share your ideas.
 * **Want to contribute?** Feel free to fork this repository, make your changes, and submit a Pull Request.
 
 ---
