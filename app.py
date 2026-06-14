@@ -342,14 +342,14 @@ def download_comprehensive_report():
     pdf.line(40, badge_y - 6, width - 40, badge_y - 6)
 
     # Draw badges
-    y_pos = badge_y - 30
+    y_pos = badge_y - 45
     if badges:
         col_w = (width - 80) / 2
         for idx, badge in enumerate(badges):
             col = idx % 2
             row = idx // 2
             bx = 40 + col * col_w
-            by = y_pos - row * 38
+            by = y_pos - row * 40
             
             # Badge card container
             pdf.setFillColor(HexColor("#f8fafc"))
@@ -371,11 +371,11 @@ def download_comprehensive_report():
             pdf.drawString(bx + 28, by + 7, badge.get("desc", ""))
         
         # Calculate new y position based on badge rows
-        y_pos -= (((len(badges) + 1) // 2) * 38)
+        y_pos -= (((len(badges) + 1) // 2) * 40)
     else:
         pdf.setFillColor(HexColor("#475569"))
         pdf.setFont("Helvetica-Oblique", 9)
-        pdf.drawString(55, y_pos, "No tactical badges unlocked. Complete behavioral profiles to earn recognition.")
+        pdf.drawString(55, y_pos + 15, "No tactical badges unlocked. Complete behavioral profiles to earn recognition.")
         y_pos -= 20
 
     # 4. History Logs Section (Table)
